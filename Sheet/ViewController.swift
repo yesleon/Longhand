@@ -30,6 +30,12 @@ class ViewController: UITableViewController {
         navigationBar.topItem?.title = title
         navigationBar.shadowImage = UIImage()
         tableView.register(TableViewCell.nib, forCellReuseIdentifier: "Cell")
+        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView)))
+    }
+    
+    @objc func didTapTableView(with tapGesture: UITapGestureRecognizer) {
+        let cell = tableView.cellForRow(at: [0, paragraphs.count - 1]) as! TableViewCell
+        cell.beginEditing()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

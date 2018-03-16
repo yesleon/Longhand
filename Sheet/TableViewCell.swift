@@ -31,6 +31,7 @@ class TableViewCell: UITableViewCell {
     
     func setParagraph(_ paragraph: Paragraph) {
         textView.text = paragraph.text
+        textView.isEditable = textView.text.isEmpty
     }
     
     func beginEditing() {
@@ -40,10 +41,6 @@ class TableViewCell: UITableViewCell {
 }
 
 extension TableViewCell: UITextViewDelegate {
-    
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        return textView.text.isEmpty
-    }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if range.length == 0 {
