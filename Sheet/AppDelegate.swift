@@ -12,6 +12,9 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var pageVC: UIPageViewController? {
+        return window?.rootViewController as? UIPageViewController
+    }
 
     var sheets: [Sheet] = [Sheet(title: "Sheet 1", paragraphs: [Paragraph(text: "", date: Date())]), Sheet(title: "Sheet 2", paragraphs: [Paragraph(text: "", date: Date())])]
     
@@ -22,13 +25,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         viewController.title = sheet.title
         return viewController
     }
+    
+    func makeSheetTitle() -> String {
+        let prefix = "Sheet "
+        let numbers = sheets.flatMap { sheet -> Int? in
+            var title = sheet.title
+            title.removeFirst(prefix.count)
+            return Int(title)
+        }
+        let largestNumber = numbers.sorted().last ?? 0
+        return prefix + "\(largestNumber + 1)"
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        if let pageVC = window?.rootViewController as? UIPageViewController {
-            pageVC.dataSource = self
-            let viewController = makeViewController(sheet: sheets.first!)
-            pageVC.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
-        }
+        pageVC?.dataSource = self
+        let viewController = makeViewController(sheet: sheets.first!)
+        pageVC?.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
+        
         return true
     }
 
@@ -38,27 +51,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if let index = sheets.index(where: { $0.title == viewController.title }) {
-            let nextIndex = index + 1
-            if nextIndex < sheets.count {
-                return makeViewController(sheet: sheets[nextIndex])
-            } else {
-                return nil
-            }
+        guard let index = sheets.index(where: { $0.title == viewController.title }) else { return nil }
+        let nextIndex = index + 1
+        if nextIndex < sheets.count {
+            return makeViewController(sheet: sheets[nextIndex])
+        } else {
+            return nil
         }
-        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        if let index = sheets.index(where: { $0.title == viewController.title }) {
-            let previousIndex = index - 1
-            if previousIndex >= 0 {
-                return makeViewController(sheet: sheets[previousIndex])
-            } else {
-                return nil
-            }
+        guard let index = sheets.index(where: { $0.title == viewController.title }) else { return nil }
+        let previousIndex = index - 1
+        if previousIndex >= 0 {
+            return makeViewController(sheet: sheets[previousIndex])
+        } else {
+            return nil
         }
-        return nil
     }
     
 }
@@ -72,17 +81,25 @@ extension AppDelegate: ViewControllerDelegate {
     }
     
     func viewController(_ viewController: ViewController, didRequest operation: ViewControllerOperation) {
+        guard let index = sheets.index(where: { $0.title == viewController.title }) else { return }
         switch operation {
         case .create:
-            if let index = sheets.index(where: { $0.title == viewController.title }) {
-                let newSheet = Sheet(title: UUID().uuidString, paragraphs: [Paragraph(text: "", date: Date())])
-                sheets.insert(newSheet, at: index + 1)
-                if let pageVC = window?.rootViewController as? UIPageViewController {
-                    pageVC.setViewControllers([makeViewController(sheet: newSheet)], direction: .forward, animated: true, completion: nil)
-                }
-            }
+            let newSheet = Sheet(title: makeSheetTitle(), paragraphs: [Paragraph(text: "", date: Date())])
+            sheets.append(newSheet)
+            pageVC?.setViewControllers([makeViewController(sheet: newSheet)], direction: .forward, animated: true, completion: nil)
+            
         case .delete:
-            break
+            guard sheets.count > 1 else { break }
+            sheets.remove(at: index)
+            let nextIndex = index
+            let previousIndex = index - 1
+            if nextIndex < sheets.count {
+                let viewController = makeViewController(sheet: sheets[nextIndex])
+                pageVC?.setViewControllers([viewController], direction: .forward, animated: true, completion: nil)
+            } else if previousIndex >= 0 {
+                let viewController = makeViewController(sheet: sheets[previousIndex])
+                pageVC?.setViewControllers([viewController], direction: .reverse, animated: true, completion: nil)
+            }
         }
     }
     
