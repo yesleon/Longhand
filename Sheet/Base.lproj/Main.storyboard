@@ -22,8 +22,16 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem id="Dcz-2P-bNT">
-                                    <barButtonItem key="leftBarButtonItem" systemItem="trash" id="Pun-hk-IXF"/>
-                                    <barButtonItem key="rightBarButtonItem" systemItem="add" id="IOz-Kw-C4C"/>
+                                    <barButtonItem key="leftBarButtonItem" systemItem="trash" id="Pun-hk-IXF">
+                                        <connections>
+                                            <action selector="didPressTrashButton:" destination="V6s-wG-ife" id="0kj-WY-7fm"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" systemItem="add" id="IOz-Kw-C4C">
+                                        <connections>
+                                            <action selector="didPressAddButton:" destination="V6s-wG-ife" id="4tX-r0-3yy"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </navigationItem>
                             </items>
                         </navigationBar>

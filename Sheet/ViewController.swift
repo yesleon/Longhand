@@ -8,8 +8,13 @@
 
 import UIKit
 
+enum ViewControllerOperation {
+    case create, delete
+}
+
 protocol ViewControllerDelegate: AnyObject {
     func viewController(_ viewController: ViewController, didUpdate paragraphs: [Paragraph])
+    func viewController(_ viewController: ViewController, didRequest operation: ViewControllerOperation)
 }
 
 class ViewController: UITableViewController {
@@ -48,6 +53,14 @@ class ViewController: UITableViewController {
         beginEditing(at: indexPath)
     }
 
+    @IBAction func didPressAddButton(_ item: UIBarButtonItem) {
+        delegate?.viewController(self, didRequest: .create)
+    }
+    
+    @IBAction func didPressTrashButton(_ item: UIBarButtonItem) {
+        delegate?.viewController(self, didRequest: .delete)
+    }
+    
 }
 
 extension ViewController: TableViewCellDelegate {

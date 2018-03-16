@@ -71,5 +71,20 @@ extension AppDelegate: ViewControllerDelegate {
         }
     }
     
+    func viewController(_ viewController: ViewController, didRequest operation: ViewControllerOperation) {
+        switch operation {
+        case .create:
+            if let index = sheets.index(where: { $0.title == viewController.title }) {
+                let newSheet = Sheet(title: UUID().uuidString, paragraphs: [Paragraph(text: "", date: Date())])
+                sheets.insert(newSheet, at: index + 1)
+                if let pageVC = window?.rootViewController as? UIPageViewController {
+                    pageVC.setViewControllers([makeViewController(sheet: newSheet)], direction: .forward, animated: true, completion: nil)
+                }
+            }
+        case .delete:
+            break
+        }
+    }
+    
 }
 
