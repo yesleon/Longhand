@@ -17,12 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" translucent="NO" id="gJZ-A1-E2k">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Sheet" id="Dcz-2P-bNT">
+                                    <barButtonItem key="leftBarButtonItem" systemItem="trash" id="Pun-hk-IXF"/>
+                                    <barButtonItem key="rightBarButtonItem" systemItem="add" id="IOz-Kw-C4C"/>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
                         <sections/>
                         <connections>
                             <outlet property="dataSource" destination="V6s-wG-ife" id="zKE-kQ-bWh"/>
                             <outlet property="delegate" destination="V6s-wG-ife" id="x1j-mp-a2J"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="navigationBar" destination="gJZ-A1-E2k" id="uf8-Zp-C1u"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o9f-se-0uA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -11,10 +11,13 @@ import UIKit
 class ViewController: UITableViewController {
     
     var paragraphs: [Paragraph] = [Paragraph(text: "", date: Date())]
-
+    
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationBar.shadowImage = UIImage()
         tableView.register(TableViewCell.nib, forCellReuseIdentifier: "Cell")
     }
     
