@@ -8,15 +8,21 @@
 
 import UIKit
 
+protocol ViewControllerDelegate: AnyObject {
+    func viewController(_ viewController: ViewController, didUpdate paragraphs: [Paragraph])
+}
+
 class ViewController: UITableViewController {
     
-    var paragraphs: [Paragraph] = [Paragraph(text: "", date: Date())]
+    var paragraphs: [Paragraph] = []
     
     @IBOutlet weak var navigationBar: UINavigationBar!
+    weak var delegate: ViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationBar.topItem?.title = title
         navigationBar.shadowImage = UIImage()
         tableView.register(TableViewCell.nib, forCellReuseIdentifier: "Cell")
     }
@@ -57,6 +63,7 @@ extension ViewController: TableViewCellDelegate {
             tableView.insertRows(at: [newIndexPath], with: .none)
             beginEditing(at: newIndexPath)
         }
+        delegate?.viewController(self, didUpdate: paragraphs)
     }
     
 }

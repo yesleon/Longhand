@@ -15,6 +15,7 @@
 		71E5DEBE205B6CE10025E1BF /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E5DEBC205B6CE10025E1BF /* TableViewCell.swift */; };
 		71E5DEBF205B6CE10025E1BF /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E5DEBD205B6CE10025E1BF /* TableViewCell.xib */; };
 		71E5DEC1205B6DEB0025E1BF /* Paragraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E5DEC0205B6DEB0025E1BF /* Paragraph.swift */; };
+		71E5DEC3205B82C00025E1BF /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E5DEC2205B82C00025E1BF /* Sheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		71E5DEBC205B6CE10025E1BF /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		71E5DEBD205B6CE10025E1BF /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		71E5DEC0205B6DEB0025E1BF /* Paragraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paragraph.swift; sourceTree = "<group>"; };
+		71E5DEC2205B82C00025E1BF /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				71E5DEAA205B6C380025E1BF /* AppDelegate.swift */,
+				71E5DEC2205B82C00025E1BF /* Sheet.swift */,
 				71E5DEAC205B6C380025E1BF /* ViewController.swift */,
 				71E5DEC0205B6DEB0025E1BF /* Paragraph.swift */,
 				71E5DEBC205B6CE10025E1BF /* TableViewCell.swift */,
@@ -146,6 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71E5DEC3205B82C00025E1BF /* Sheet.swift in Sources */,
 				71E5DEC1205B6DEB0025E1BF /* Paragraph.swift in Sources */,
 				71E5DEBE205B6CE10025E1BF /* TableViewCell.swift in Sources */,
 				71E5DEAD205B6C380025E1BF /* ViewController.swift in Sources */,
