@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		71E5DEA7205B6C380025E1BF /* Sheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sheet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		71E5DEA7205B6C380025E1BF /* Longhand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Longhand.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71E5DEAA205B6C380025E1BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71E5DEAC205B6C380025E1BF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		71E5DEAF205B6C380025E1BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		71E5DE9E205B6C380025E1BF = {
 			isa = PBXGroup;
 			children = (
-				71E5DEA9205B6C380025E1BF /* Sheet */,
+				71E5DEA9205B6C380025E1BF /* Longhand */,
 				71E5DEA8205B6C380025E1BF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +54,12 @@
 		71E5DEA8205B6C380025E1BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				71E5DEA7205B6C380025E1BF /* Sheet.app */,
+				71E5DEA7205B6C380025E1BF /* Longhand.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		71E5DEA9205B6C380025E1BF /* Sheet */ = {
+		71E5DEA9205B6C380025E1BF /* Longhand */ = {
 			isa = PBXGroup;
 			children = (
 				71E5DEAA205B6C380025E1BF /* AppDelegate.swift */,
@@ -73,15 +73,15 @@
 				71E5DEB3205B6C380025E1BF /* LaunchScreen.storyboard */,
 				71E5DEB6205B6C380025E1BF /* Info.plist */,
 			);
-			path = Sheet;
+			path = Longhand;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		71E5DEA6205B6C380025E1BF /* Sheet */ = {
+		71E5DEA6205B6C380025E1BF /* Longhand */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 71E5DEB9205B6C380025E1BF /* Build configuration list for PBXNativeTarget "Sheet" */;
+			buildConfigurationList = 71E5DEB9205B6C380025E1BF /* Build configuration list for PBXNativeTarget "Longhand" */;
 			buildPhases = (
 				71E5DEA3205B6C380025E1BF /* Sources */,
 				71E5DEA4205B6C380025E1BF /* Frameworks */,
@@ -91,9 +91,9 @@
 			);
 			dependencies = (
 			);
-			name = Sheet;
+			name = Longhand;
 			productName = Sheet;
-			productReference = 71E5DEA7205B6C380025E1BF /* Sheet.app */;
+			productReference = 71E5DEA7205B6C380025E1BF /* Longhand.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -112,7 +112,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 71E5DEA2205B6C380025E1BF /* Build configuration list for PBXProject "Sheet" */;
+			buildConfigurationList = 71E5DEA2205B6C380025E1BF /* Build configuration list for PBXProject "Longhand" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				71E5DEA6205B6C380025E1BF /* Sheet */,
+				71E5DEA6205B6C380025E1BF /* Longhand */,
 			);
 		};
 /* End PBXProject section */
@@ -292,9 +292,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K3ER26RU8S;
-				INFOPLIST_FILE = Sheet/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Longhand/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.narrativesaw.Sheet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.narrativesaw.Longhand;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,9 +307,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K3ER26RU8S;
-				INFOPLIST_FILE = Sheet/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Longhand/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.narrativesaw.Sheet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.narrativesaw.Longhand;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -319,7 +319,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		71E5DEA2205B6C380025E1BF /* Build configuration list for PBXProject "Sheet" */ = {
+		71E5DEA2205B6C380025E1BF /* Build configuration list for PBXProject "Longhand" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				71E5DEB7205B6C380025E1BF /* Debug */,
@@ -328,7 +328,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		71E5DEB9205B6C380025E1BF /* Build configuration list for PBXNativeTarget "Sheet" */ = {
+		71E5DEB9205B6C380025E1BF /* Build configuration list for PBXNativeTarget "Longhand" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				71E5DEBA205B6C380025E1BF /* Debug */,
