@@ -27,7 +27,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.topItem?.title = title
+//        navigationBar.topItem?.title = title
         navigationBar.shadowImage = UIImage()
         tableView.register(TableViewCell.nib, forCellReuseIdentifier: "Cell")
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView)))
@@ -59,11 +59,8 @@ class ViewController: UITableViewController {
         beginEditing(at: indexPath)
     }
 
-    @IBAction func didPressAddButton(_ item: UIBarButtonItem) {
+    @IBAction func didPressMoreButtonItem(_ item: UIBarButtonItem) {
         delegate?.viewController(self, didRequest: .create)
-    }
-    
-    @IBAction func didPressTrashButton(_ item: UIBarButtonItem) {
         delegate?.viewController(self, didRequest: .delete)
     }
     
@@ -71,7 +68,7 @@ class ViewController: UITableViewController {
 
 extension ViewController: TableViewCellDelegate {
     
-    func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph) {
+    func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph, withReturnPressed: Bool) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         paragraphs[indexPath.row] = paragraph
         
@@ -80,7 +77,9 @@ extension ViewController: TableViewCellDelegate {
             var newIndexPath = indexPath
             newIndexPath.row += 1
             tableView.insertRows(at: [newIndexPath], with: .none)
-            beginEditing(at: newIndexPath)
+            if withReturnPressed {
+                beginEditing(at: newIndexPath)
+            }
         }
         delegate?.viewController(self, didUpdate: paragraphs)
     }

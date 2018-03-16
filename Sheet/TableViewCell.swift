@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TableViewCellDelegate: AnyObject {
-    func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph)
+    func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph, withReturnPressed: Bool)
 }
 
 class TableViewCell: UITableViewCell {
@@ -18,10 +18,12 @@ class TableViewCell: UITableViewCell {
     
     @IBOutlet private weak var textView: UITextView!
     weak var delegate: TableViewCellDelegate?
+    private var withReturnPressed = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
         textView.delegate = self
+        textView.isSelectable = false
     }
     
     override func prepareForReuse() {
@@ -43,11 +45,10 @@ class TableViewCell: UITableViewCell {
 extension TableViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if range.length == 0 {
-            if text == "\n" {
-                textView.endEditing(false)
-                return false
-            }
+        if text == "\n" {
+            withReturnPressed = true
+            textView.endEditing(false)
+            return false
         }
         return true
     }
@@ -61,8 +62,11 @@ extension TableViewCell: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        textView.isSelectable = false
+        textView.isEditable = textView.text.isEmpty
         let paragraph = Paragraph(text: textView.text, date: Date())
-        delegate?.tableViewCell(self, didEndEditing: paragraph)
+        delegate?.tableViewCell(self, didEndEditing: paragraph, withReturnPressed: withReturnPressed)
+        withReturnPressed = false
     }
     
 }

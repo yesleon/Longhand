@@ -51,6 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewController = makeViewController(sheet: sheets.first!)
         pageVC?.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
         
+        let view = UIView(frame: window!.bounds)
+        view.backgroundColor = .white
+        window?.insertSubview(view, at: 0)
         return true
     }
 
@@ -102,15 +105,21 @@ extension AppDelegate: ViewControllerDelegate {
     
     func viewController(_ viewController: ViewController, didRequest operation: ViewControllerOperation) {
         guard let index = sheets.index(where: { $0.title == viewController.title }) else { return }
-        switch operation {
-        case .create:
+        func create() {
             let newSheet = Sheet(title: makeSheetTitle(), paragraphs: [Paragraph(text: "", date: Date())])
             sheets.append(newSheet)
             pageVC?.setViewControllers([makeViewController(sheet: newSheet)], direction: .forward, animated: true, completion: nil)
+        }
+        switch operation {
+        case .create:
+            create()
             
         case .delete:
-            guard sheets.count > 1 else { break }
             sheets.remove(at: index)
+            if sheets.isEmpty {
+                create()
+                break
+            }
             let nextIndex = index
             let previousIndex = index - 1
             if nextIndex < sheets.count {
