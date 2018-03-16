@@ -52,8 +52,15 @@ extension TableViewCell: UITextViewDelegate {
                 return false
             }
         }
-        
         return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.caretRect(for: textView.endOfDocument).origin.y < 0 {
+            textView.removeConstraints(textView.constraints)
+            textView.translatesAutoresizingMaskIntoConstraints = true
+            textView.sizeToFit()
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
