@@ -8,18 +8,35 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UITableViewController {
+    
+    var paragraphs: [Paragraph] = [Paragraph(text: "", date: Date())]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        tableView.register(TableViewCell.nib, forCellReuseIdentifier: "Cell")
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return paragraphs.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        cell.setParagraph(paragraphs[indexPath.row])
+        return cell
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+}
+
+extension ViewController: TableViewCellDelegate {
+    
+    func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        paragraphs[indexPath.row] = paragraph
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
-
-
+    
 }
 
