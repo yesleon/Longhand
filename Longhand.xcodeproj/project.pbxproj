@@ -43,6 +43,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		711A0F10205C841900C050F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				71E5DEC2205B82C00025E1BF /* Sheet.swift */,
+				71E5DEC0205B6DEB0025E1BF /* Paragraph.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		711A0F11205C842500C050F9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				71E5DEAA205B6C380025E1BF /* AppDelegate.swift */,
+				71E5DEAC205B6C380025E1BF /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		711A0F12205C843000C050F9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				71E5DEBC205B6CE10025E1BF /* TableViewCell.swift */,
+				71E5DEBD205B6CE10025E1BF /* TableViewCell.xib */,
+				71E5DEAE205B6C380025E1BF /* Main.storyboard */,
+				71E5DEB3205B6C380025E1BF /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		71E5DE9E205B6C380025E1BF = {
 			isa = PBXGroup;
 			children = (
@@ -62,15 +91,10 @@
 		71E5DEA9205B6C380025E1BF /* Longhand */ = {
 			isa = PBXGroup;
 			children = (
-				71E5DEAA205B6C380025E1BF /* AppDelegate.swift */,
-				71E5DEC2205B82C00025E1BF /* Sheet.swift */,
-				71E5DEC0205B6DEB0025E1BF /* Paragraph.swift */,
-				71E5DEAC205B6C380025E1BF /* ViewController.swift */,
-				71E5DEBC205B6CE10025E1BF /* TableViewCell.swift */,
-				71E5DEBD205B6CE10025E1BF /* TableViewCell.xib */,
-				71E5DEAE205B6C380025E1BF /* Main.storyboard */,
+				711A0F10205C841900C050F9 /* Model */,
+				711A0F12205C843000C050F9 /* View */,
+				711A0F11205C842500C050F9 /* Controller */,
 				71E5DEB1205B6C380025E1BF /* Assets.xcassets */,
-				71E5DEB3205B6C380025E1BF /* LaunchScreen.storyboard */,
 				71E5DEB6205B6C380025E1BF /* Info.plist */,
 			);
 			path = Longhand;
