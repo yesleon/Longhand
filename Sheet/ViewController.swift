@@ -60,8 +60,15 @@ class ViewController: UITableViewController {
     }
 
     @IBAction func didPressMoreButtonItem(_ item: UIBarButtonItem) {
-        delegate?.viewController(self, didRequest: .create)
-        delegate?.viewController(self, didRequest: .delete)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "New Sheet", style: .default, handler: { _ in
+            self.delegate?.viewController(self, didRequest: .create)
+        }))
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            self.delegate?.viewController(self, didRequest: .delete)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
     }
     
 }
