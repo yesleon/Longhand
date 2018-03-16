@@ -64,8 +64,8 @@
 			children = (
 				71E5DEAA205B6C380025E1BF /* AppDelegate.swift */,
 				71E5DEC2205B82C00025E1BF /* Sheet.swift */,
-				71E5DEAC205B6C380025E1BF /* ViewController.swift */,
 				71E5DEC0205B6DEB0025E1BF /* Paragraph.swift */,
+				71E5DEAC205B6C380025E1BF /* ViewController.swift */,
 				71E5DEBC205B6CE10025E1BF /* TableViewCell.swift */,
 				71E5DEBD205B6CE10025E1BF /* TableViewCell.xib */,
 				71E5DEAE205B6C380025E1BF /* Main.storyboard */,

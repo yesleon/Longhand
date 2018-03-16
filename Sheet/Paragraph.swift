@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Paragraph {
+struct Paragraph: Codable {
     var text: String
     var date: Date
 }

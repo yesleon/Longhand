@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Sheet {
+struct Sheet: Codable {
     var title: String
     var paragraphs: [Paragraph]
 }

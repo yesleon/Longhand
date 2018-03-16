@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var pageVC: UIPageViewController? {
         return window?.rootViewController as? UIPageViewController
     }
+    
+    private let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Sheets.plist")
 
     var sheets: [Sheet] = [Sheet(title: "Sheet 1", paragraphs: [Paragraph(text: "", date: Date())]), Sheet(title: "Sheet 2", paragraphs: [Paragraph(text: "", date: Date())])]
     
@@ -38,6 +40,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        do {
+            let sheetsData = try Data(contentsOf: url)
+            let sheets = try PropertyListDecoder().decode([Sheet].self, from: sheetsData)
+            self.sheets = sheets
+        } catch {
+            print(error)
+        }
         pageVC?.dataSource = self
         let viewController = makeViewController(sheet: sheets.first!)
         pageVC?.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
@@ -74,9 +83,20 @@ extension AppDelegate: UIPageViewControllerDataSource {
 
 extension AppDelegate: ViewControllerDelegate {
     
+    func saveSheets() {
+        do {
+            let sheetsData = try PropertyListEncoder().encode(sheets)
+            
+            try sheetsData.write(to: url)
+        } catch {
+            print(error)
+        }
+    }
+    
     func viewController(_ viewController: ViewController, didUpdate paragraphs: [Paragraph]) {
         if let index = sheets.index(where: { $0.title == viewController.title }) {
             sheets[index] = Sheet(title: viewController.title!, paragraphs: paragraphs)
+            saveSheets()
         }
     }
     
@@ -101,6 +121,7 @@ extension AppDelegate: ViewControllerDelegate {
                 pageVC?.setViewControllers([viewController], direction: .reverse, animated: true, completion: nil)
             }
         }
+        saveSheets()
     }
     
 }
