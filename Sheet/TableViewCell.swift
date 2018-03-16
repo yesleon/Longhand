@@ -33,9 +33,28 @@ class TableViewCell: UITableViewCell {
         textView.text = paragraph.text
     }
     
+    func beginEditing() {
+        textView.becomeFirstResponder()
+    }
+    
 }
 
 extension TableViewCell: UITextViewDelegate {
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return textView.text.isEmpty
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if range.length == 0 {
+            if text == "\n" {
+                textView.endEditing(false)
+                return false
+            }
+        }
+        
+        return true
+    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         let paragraph = Paragraph(text: textView.text, date: Date())

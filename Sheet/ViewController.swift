@@ -24,8 +24,19 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        cell.delegate = self
         cell.setParagraph(paragraphs[indexPath.row])
         return cell
+    }
+    
+    private func beginEditing(at indexPath: IndexPath) {
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        let cell = tableView.cellForRow(at: indexPath) as! TableViewCell
+        cell.beginEditing()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        beginEditing(at: indexPath)
     }
 
 }
@@ -35,7 +46,14 @@ extension ViewController: TableViewCellDelegate {
     func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         paragraphs[indexPath.row] = paragraph
-        tableView.reloadRows(at: [indexPath], with: .none)
+        
+        if !paragraph.text.isEmpty {
+            paragraphs.append(Paragraph(text: "", date: Date()))
+            var newIndexPath = indexPath
+            newIndexPath.row += 1
+            tableView.insertRows(at: [newIndexPath], with: .none)
+            beginEditing(at: newIndexPath)
+        }
     }
     
 }
