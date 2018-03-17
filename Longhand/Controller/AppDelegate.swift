@@ -121,19 +121,19 @@ extension AppDelegate: ViewControllerDelegate {
     
     func viewController(_ viewController: ViewController, didRequest operation: ViewControllerOperation) {
         guard let index = sheets.index(where: { $0.title == viewController.title }) else { return }
-        func create() {
+        func create(at index: Int) {
             let newSheet = Sheet(title: makeSheetTitle(), paragraphs: [Paragraph(text: "", date: Date())])
-            sheets.append(newSheet)
+            sheets.insert(newSheet, at: index)
             pageVC?.setViewControllers([makeViewController(sheet: newSheet)], direction: .forward, animated: true, completion: nil)
         }
         switch operation {
         case .create:
-            create()
+            create(at: index + 1)
             
         case .delete:
             sheets.remove(at: index)
             if sheets.isEmpty {
-                create()
+                create(at: index)
                 break
             }
             let nextIndex = index

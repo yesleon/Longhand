@@ -66,6 +66,9 @@ class ViewController: UITableViewController {
 
     @IBAction func didPressMoreButtonItem(_ item: UIBarButtonItem) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = item
+        }
         alertController.addAction(UIAlertAction(title: "New Sheet", style: .default, handler: { _ in
             self.delegate?.viewController(self, didRequest: .create)
         }))
