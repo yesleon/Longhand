@@ -23,16 +23,17 @@ class TableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         textView.delegate = self
-        textView.isSelectable = false
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         textView.text = nil
+        textView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setParagraph(_ paragraph: Paragraph) {
         textView.text = paragraph.text
+        textView.isSelectable = false
         textView.isEditable = textView.text.isEmpty
     }
     
@@ -55,7 +56,6 @@ extension TableViewCell: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         if textView.caretRect(for: textView.endOfDocument).origin.y < 0 {
-            textView.removeConstraints(textView.constraints)
             textView.translatesAutoresizingMaskIntoConstraints = true
             textView.sizeToFit()
         }

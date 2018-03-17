@@ -50,14 +50,9 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    private func beginEditing(at indexPath: IndexPath) {
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! TableViewCell
         cell.beginEditing()
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        beginEditing(at: indexPath)
     }
 
     @IBAction func didPressMoreButtonItem(_ item: UIBarButtonItem) {
@@ -83,12 +78,16 @@ extension ViewController: TableViewCellDelegate {
         
         if !paragraph.text.isEmpty {
             paragraphs.append(Paragraph(text: "", date: Date()))
+            
             var newIndexPath = indexPath
             newIndexPath.row += 1
-            tableView.insertRows(at: [newIndexPath], with: .none)
+            tableView.insertRows(at: [newIndexPath], with: .top)
             if withReturnPressed {
-                beginEditing(at: newIndexPath)
+                tableView.scrollToRow(at: newIndexPath, at: .bottom, animated: false)
+                let cell = tableView.cellForRow(at: newIndexPath) as! TableViewCell
+                cell.beginEditing()
             }
+            
         }
         delegate?.viewController(self, didUpdate: paragraphs)
     }
