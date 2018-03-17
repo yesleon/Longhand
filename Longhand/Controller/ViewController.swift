@@ -27,14 +27,15 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        navigationBar.topItem?.title = title
         navigationBar.shadowImage = UIImage()
         tableView.register(TableViewCell.nib, forCellReuseIdentifier: "Cell")
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView)))
     }
     
     @objc func didTapTableView(with tapGesture: UITapGestureRecognizer) {
-        let cell = tableView.cellForRow(at: [0, paragraphs.count - 1]) as! TableViewCell
+        let lastIndexPath: IndexPath = [0, paragraphs.count - 1]
+        tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: false)
+        let cell = tableView.cellForRow(at: lastIndexPath) as! TableViewCell
         cell.beginEditing()
     }
     
@@ -78,6 +79,7 @@ extension ViewController: TableViewCellDelegate {
     func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph, withReturnPressed: Bool) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         paragraphs[indexPath.row] = paragraph
+        tableView.reloadRows(at: [indexPath], with: .none)
         
         if !paragraph.text.isEmpty {
             paragraphs.append(Paragraph(text: "", date: Date()))

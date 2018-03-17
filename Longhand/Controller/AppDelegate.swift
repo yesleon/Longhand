@@ -12,15 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var pageVC: UIPageViewController? {
+    private var pageVC: UIPageViewController? {
         return window?.rootViewController as? UIPageViewController
     }
+    private weak var statusBarBackgroundView: UIView?
     
     private let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Sheets.plist")
 
-    var sheets: [Sheet] = [Sheet(title: "Sheet 1", paragraphs: [Paragraph(text: "", date: Date())]), Sheet(title: "Sheet 2", paragraphs: [Paragraph(text: "", date: Date())])]
+    private var sheets: [Sheet] = [Sheet(title: "Sheet 1", paragraphs: [Paragraph(text: "", date: Date())]), Sheet(title: "Sheet 2", paragraphs: [Paragraph(text: "", date: Date())])]
     
-    func makeViewController(sheet: Sheet) -> ViewController {
+    private func makeViewController(sheet: Sheet) -> ViewController {
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
         viewController.paragraphs = sheet.paragraphs
         viewController.delegate = self
@@ -28,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return viewController
     }
     
-    func makeSheetTitle() -> String {
+    private func makeSheetTitle() -> String {
         let prefix = "Sheet "
         let numbers = sheets.flatMap { sheet -> Int? in
             var title = sheet.title
@@ -54,9 +55,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let view = UIView(frame: window!.bounds)
         view.backgroundColor = .white
         window?.insertSubview(view, at: 0)
+        
+        window?.tintColor = #colorLiteral(red: 0.9463686347, green: 0.59736377, blue: 0.2002493739, alpha: 1)
+        
+        let statusBarBackgroundView = UIView()
+        statusBarBackgroundView.backgroundColor = .white
+        window?.addSubview(statusBarBackgroundView)
+        self.statusBarBackgroundView = statusBarBackgroundView
+        
         return true
     }
-
+    
+    func application(_ application: UIApplication, didChangeStatusBarFrame oldStatusBarFrame: CGRect) {
+        DispatchQueue.main.async { [weak self] in
+            guard let statusBarBackgroundView = self?.statusBarBackgroundView else { return }
+            statusBarBackgroundView.frame = application.statusBarFrame
+            self?.window?.bringSubview(toFront: statusBarBackgroundView)
+        }
+    }
 
 }
 
