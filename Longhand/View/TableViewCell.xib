@@ -20,21 +20,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="404" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="j" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ez2-Rs-PUj">
-                        <rect key="frame" x="20" y="11" width="364" height="38"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="j" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ez2-Rs-PUj">
+                        <rect key="frame" x="20" y="11" width="364" height="48.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                     </textView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ez2-Rs-PUj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ShT-TB-lat"/>
                     <constraint firstItem="Ez2-Rs-PUj" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="dhw-nC-CWQ"/>
                     <constraint firstItem="Ez2-Rs-PUj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="jtI-Za-mu6"/>
-                    <constraint firstItem="Ez2-Rs-PUj" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="oeR-zu-Av3"/>
+                    <constraint firstItem="Ez2-Rs-PUj" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" id="oeR-zu-Av3"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.94636863470077515" green="0.59736377000808716" blue="0.20024937391281128" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="textView" destination="Ez2-Rs-PUj" id="xFY-0q-BLS"/>

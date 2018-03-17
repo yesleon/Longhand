@@ -32,11 +32,21 @@ class ViewController: UITableViewController {
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView)))
     }
     
-    @objc func didTapTableView(with tapGesture: UITapGestureRecognizer) {
-        let lastIndexPath: IndexPath = [0, paragraphs.count - 1]
+    fileprivate func beginEditing() {
+        var lastIndexPath: IndexPath = [0, paragraphs.count - 1]
+        if !paragraphs[lastIndexPath.row].text.isEmpty {
+            paragraphs.append(Paragraph(text: "", date: Date()))
+            delegate?.viewController(self, didUpdate: paragraphs)
+            lastIndexPath.row += 1
+            tableView.insertRows(at: [lastIndexPath], with: .none)
+        }
         tableView.scrollToRow(at: lastIndexPath, at: .bottom, animated: false)
         let cell = tableView.cellForRow(at: lastIndexPath) as! TableViewCell
         cell.beginEditing()
+    }
+    
+    @objc func didTapTableView(with tapGesture: UITapGestureRecognizer) {
+        beginEditing()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,8 +61,7 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! TableViewCell
-        cell.beginEditing()
+        beginEditing()
     }
 
     @IBAction func didPressMoreButtonItem(_ item: UIBarButtonItem) {
@@ -71,24 +80,27 @@ class ViewController: UITableViewController {
 
 extension ViewController: TableViewCellDelegate {
     
-    func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph, withReturnPressed: Bool) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        paragraphs[indexPath.row] = paragraph
-        tableView.reloadRows(at: [indexPath], with: .none)
+    func tableViewCellDidReturn(_ cell: TableViewCell) {
+        let tableView: UITableView = self.tableView
+        guard let indexPath = tableView.indexPath(for: cell) else { fatalError() }
+        guard !paragraphs.last!.text.isEmpty else { return }
+        paragraphs.append(Paragraph(text: "", date: Date()))
+        delegate?.viewController(self, didUpdate: paragraphs)
         
-        if !paragraph.text.isEmpty {
-            paragraphs.append(Paragraph(text: "", date: Date()))
-            
-            var newIndexPath = indexPath
-            newIndexPath.row += 1
-            tableView.insertRows(at: [newIndexPath], with: .top)
-            if withReturnPressed {
-                tableView.scrollToRow(at: newIndexPath, at: .bottom, animated: false)
-                let cell = tableView.cellForRow(at: newIndexPath) as! TableViewCell
-                cell.beginEditing()
-            }
-            
-        }
+        var newIndexPath = indexPath
+        newIndexPath.row += 1
+        UIView.animate(withDuration: 0, animations: {
+            tableView.insertRows(at: [newIndexPath], with: .none)
+        }, completion: { _ in
+            tableView.scrollToRow(at: newIndexPath, at: .bottom, animated: false)
+            let cell = tableView.cellForRow(at: newIndexPath) as! TableViewCell
+            cell.beginEditing()
+        })
+    }
+    
+    func tableViewCell(_ cell: TableViewCell, didUpdate paragraph: Paragraph) {
+        guard let indexPath = tableView.indexPath(for: cell) else { fatalError() }
+        paragraphs[indexPath.row] = paragraph
         delegate?.viewController(self, didUpdate: paragraphs)
     }
     

@@ -9,7 +9,8 @@
 import UIKit
 
 protocol TableViewCellDelegate: AnyObject {
-    func tableViewCell(_ cell: TableViewCell, didEndEditing paragraph: Paragraph, withReturnPressed: Bool)
+    func tableViewCellDidReturn(_ cell: TableViewCell)
+    func tableViewCell(_ cell: TableViewCell, didUpdate paragraph: Paragraph)
 }
 
 class TableViewCell: UITableViewCell {
@@ -18,7 +19,6 @@ class TableViewCell: UITableViewCell {
     
     @IBOutlet private weak var textView: UITextView!
     weak var delegate: TableViewCellDelegate?
-    private var withReturnPressed = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,12 +29,14 @@ class TableViewCell: UITableViewCell {
         super.prepareForReuse()
         textView.text = nil
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isEditable = false
     }
     
     func setParagraph(_ paragraph: Paragraph) {
         textView.text = paragraph.text
-        textView.isSelectable = false
-        textView.isEditable = textView.text.isEmpty
+        if paragraph.text.isEmpty {
+            textView.isEditable = true
+        }
     }
     
     func beginEditing() {
@@ -47,8 +49,7 @@ extension TableViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            withReturnPressed = true
-            textView.endEditing(false)
+            delegate?.tableViewCellDidReturn(self)
             return false
         }
         return true
@@ -57,16 +58,16 @@ extension TableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if textView.caretRect(for: textView.endOfDocument).origin.y < 0 {
             textView.translatesAutoresizingMaskIntoConstraints = true
+            let width = textView.frame.width
             textView.sizeToFit()
+            textView.frame.size.width = width
         }
+        delegate?.tableViewCell(self, didUpdate: Paragraph(text: textView.text, date: Date()))
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        textView.isSelectable = false
         textView.isEditable = textView.text.isEmpty
-        let paragraph = Paragraph(text: textView.text, date: Date())
-        delegate?.tableViewCell(self, didEndEditing: paragraph, withReturnPressed: withReturnPressed)
-        withReturnPressed = false
+        textView.isSelectable = textView.isEditable
     }
     
 }
